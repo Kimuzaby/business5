@@ -130,15 +130,15 @@ async function sendWhatsApp() {
     }
 
     const phone = '50370483939';
-    let messageText = `🍲 NUEVO PEDIDO: LA ESQUINA DEL SABOR\n\n`;
-    messageText += `👤 Cliente: ${clientName}\n`;
-    messageText += `🚗 Modalidad: ${deliveryMethod}\n\n`;
+    let messageText = `NUEVO PEDIDO: LA ESQUINA DEL SABOR\n\n`;
+    messageText += `Cliente: ${clientName}\n`;
+    messageText += `Modalidad: ${deliveryMethod}\n\n`;
     cart.forEach(item => {
         messageText += `• ${item.quantity}x ${item.name} - $${(item.price * item.quantity).toFixed(2)}\n`;
     });
-    messageText += `\n💰 TOTAL: $${totalOrder}\n`;
-    messageText += `💳 Pago: ${paymentMethod}\n`;
-    if (locationDetails) messageText += `📝 Notas: ${locationDetails}\n`;
+    messageText += `\nTOTAL: $${totalOrder}\n`;
+    messageText += `Pago: ${paymentMethod}\n`;
+    if (locationDetails) messageText += `Notas: ${locationDetails}\n`;
     messageText += '\n¡Gracias por preferir La Esquina del Sabor! 🏠✨';
 
     window.open(`https://wa.me/${phone}?text=${encodeURIComponent(messageText)}`, '_blank');
