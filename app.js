@@ -139,7 +139,7 @@ async function sendWhatsApp() {
     messageText += `\nTOTAL: $${totalOrder}\n`;
     messageText += `Pago: ${paymentMethod}\n`;
     if (locationDetails) messageText += `Notas: ${locationDetails}\n`;
-    messageText += '\n¡Gracias por preferir La Esquina del Sabor! 🏠✨';
+    messageText += '\n¡Gracias por preferir La Esquina del Sabor!✨';
 
     window.open(`https://wa.me/${phone}?text=${encodeURIComponent(messageText)}`, '_blank');
 }
