@@ -3,20 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cocina | Hill 'N Grill</title>
+    <title>Cocina | La Esquina del Sabor</title>
     <link rel="icon" type="image/jpg" href="../img/logo.jpg">
     <style>
         :root {
-            --green: #4A7C3F;
-            --green-dark: #2F5028;
-            --amber: #D4A017;
-            --charcoal: #1C1C1C;
-            --dark: #111111;
-            --card-bg: #222222;
-            --surface: #2A2A2A;
-            --text: #F0EDE8;
-            --text-muted: #9A9A8A;
-            --border: #3A3A3A;
+            --primary: #8B4513;
+            --primary-dark: #654321;
+            --accent: #DAA520;
+            --charcoal: #2C1810;
+            --dark: #1A0F0A;
+            --card-bg: #3B2314;
+            --surface: #4A3520;
+            --text: #FFF8F0;
+            --text-muted: #C4A882;
+            --border: #5C4033;
             --red: #C0392B;
             --radius: 8px;
         }
@@ -32,31 +32,31 @@
         .column-header { padding: 15px 20px; font-weight: 700; font-size: 1.1rem; border-bottom: 2px solid var(--border); display: flex; justify-content: space-between; }
         .column-header.pendiente { color: #ff9800; border-color: #ff9800; }
         .column-header.proceso { color: #2196F3; border-color: #2196F3; }
-        .column-header.finalizado { color: var(--green); border-color: var(--green); }
+        .column-header.finalizado { color: #4CAF50; border-color: #4CAF50; }
         .column-body { flex: 1; overflow-y: auto; padding: 15px; display: flex; flex-direction: column; gap: 12px; }
         
         .order-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 15px; cursor: pointer; transition: all 0.2s; }
-        .order-card:hover { border-color: var(--green); }
-        .order-card .mesa-badge { background: var(--amber); color: var(--dark); display: inline-block; padding: 3px 12px; border-radius: 50px; font-weight: 700; font-size: 0.8rem; margin-bottom: 8px; }
+        .order-card:hover { border-color: var(--accent); }
+        .order-card .mesa-badge { background: var(--accent); color: var(--dark); display: inline-block; padding: 3px 12px; border-radius: 50px; font-weight: 700; font-size: 0.8rem; margin-bottom: 8px; }
         .order-card h3 { font-size: 1rem; margin-bottom: 5px; }
         .order-card .items { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 8px; }
-        .order-card .total { color: var(--amber); font-weight: 700; }
+        .order-card .total { color: var(--accent); font-weight: 700; }
         .order-card .actions { display: none; margin-top: 10px; gap: 8px; }
         .order-card.expanded .actions { display: flex; }
         .btn-action { padding: 8px 16px; border: none; border-radius: 50px; cursor: pointer; font-weight: 600; font-size: 0.85rem; }
         .btn-preparar { background: #2196F3; color: #fff; }
-        .btn-finalizar { background: var(--green); color: #fff; }
-        .btn-pagar { background: var(--amber); color: var(--dark); }
+        .btn-finalizar { background: #4CAF50; color: #fff; }
+        .btn-pagar { background: var(--accent); color: var(--dark); }
         .btn-cancelar { background: var(--red); color: #fff; }
         
-        .total-dia { background: var(--card-bg); padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; font-size: 1.1rem; margin: 0 20px 20px; border-radius: var(--radius); border: 1px solid var(--amber); }
-        .total-dia .amount { font-size: 1.5rem; color: var(--amber); font-weight: 700; }
+        .total-dia { background: var(--card-bg); padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; font-size: 1.1rem; margin: 0 20px 20px; border-radius: var(--radius); border: 1px solid var(--accent); }
+        .total-dia .amount { font-size: 1.5rem; color: var(--accent); font-weight: 700; }
     </style>
 </head>
 <body>
 
 <div class="top-bar">
-    <h1>👨‍🍳 Cocina · Hill 'N Grill</h1>
+    <h1>👨‍🍳 Cocina · La Esquina del Sabor</h1>
     <div>
         <button class="sound-toggle" onclick="toggleSound()">🔊 Sonido: ON</button>
         <a href="../index.html" style="color:var(--text-muted);text-decoration:none;margin-left:15px;">← Web</a>
@@ -64,7 +64,6 @@
 </div>
 
 <div class="columns">
-    <!-- Pendientes -->
     <div class="column">
         <div class="column-header pendiente">
             <span>⏳ Pendientes</span>
@@ -72,7 +71,6 @@
         </div>
         <div class="column-body" id="col-pendiente" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
     </div>
-    <!-- En Proceso -->
     <div class="column">
         <div class="column-header proceso">
             <span>🔥 En Proceso</span>
@@ -80,7 +78,6 @@
         </div>
         <div class="column-body" id="col-proceso" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
     </div>
-    <!-- Finalizados -->
     <div class="column">
         <div class="column-header finalizado">
             <span>✅ Finalizados</span>
@@ -98,7 +95,6 @@
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 <script>
-// Configuración de Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyDKmVDbSZcC6JwRG2eJkzPjf42aFVYdWg4",
   authDomain: "hill-n-grill.firebaseapp.com",
@@ -112,7 +108,6 @@ firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 let soundEnabled = true;
 
-// ===== UTILIDADES =====
 function validarId(id) {
     if (!id || id === 'undefined' || id === 'null' || id.trim() === '') {
         console.error('❌ ID inválido:', id);
@@ -140,16 +135,11 @@ function toggleSound() {
     document.querySelector('.sound-toggle').textContent = soundEnabled ? '🔊 Sonido: ON' : '🔇 Sonido: OFF';
 }
 
-// ===== DRAG & DROP =====
-function allowDrop(ev) { 
-    ev.preventDefault(); 
-}
+function allowDrop(ev) { ev.preventDefault(); }
 
 function drop(ev) {
     ev.preventDefault();
     const pedidoId = ev.dataTransfer.getData('text/plain');
-    console.log('🖱️ Drop detectado, ID:', pedidoId);
-    
     if (!validarId(pedidoId)) return;
     
     const columnBody = ev.target.closest('.column-body');
@@ -163,34 +153,21 @@ function drop(ev) {
     
     const nuevoEstado = estadoMap[columnBody.id];
     if (nuevoEstado) {
-        console.log('✅ Moviendo a:', nuevoEstado);
         actualizarEstado(pedidoId, nuevoEstado);
     }
 }
 
 function drag(ev) {
     const id = ev.target.closest('.order-card')?.dataset?.id;
-    if (!id) {
-        console.error('❌ No se encontró data-id en drag');
-        return;
-    }
+    if (!id) return;
     ev.dataTransfer.setData('text/plain', id);
-    console.log('🖱️ Drag iniciado, ID:', id);
 }
 
-// ===== ACTUALIZAR ESTADO =====
 async function actualizarEstado(pedidoId, nuevoEstado) {
-    if (!validarId(pedidoId)) {
-        alert('Error: ID de pedido inválido');
-        return;
-    }
-    
-    console.log('🔄 actualizarEstado:', { pedidoId, nuevoEstado });
+    if (!validarId(pedidoId)) return;
     
     if (nuevoEstado === 'cancelado') {
-        if (!confirm('¿Estás seguro de cancelar este pedido? Se ocultará del panel.')) {
-            return;
-        }
+        if (!confirm('¿Cancelar este pedido?')) return;
     }
     
     try {
@@ -198,38 +175,25 @@ async function actualizarEstado(pedidoId, nuevoEstado) {
             estado: nuevoEstado,
             ultimaActualizacion: firebase.firestore.Timestamp.now()
         });
-        console.log('✅ Estado actualizado:', pedidoId, '→', nuevoEstado);
     } catch (e) {
-        console.error('❌ Error al actualizar estado:', e);
+        console.error('Error:', e);
         alert('Error: ' + e.message);
     }
 }
 
-// ===== MARCAR PAGADO =====
 async function marcarPagado(pedidoId) {
     if (!validarId(pedidoId)) return;
-    
-    console.log('💵 Marcando pagado:', pedidoId);
     
     try {
         const docRef = db.collection('pedidos').doc(pedidoId);
         const doc = await docRef.get();
         
-        if (!doc.exists) {
-            alert('El pedido ya no existe');
-            return;
-        }
+        if (!doc.exists) { alert('El pedido ya no existe'); return; }
         
         const pedido = doc.data();
         const ahora = firebase.firestore.Timestamp.now();
         
-        // Actualizar estado
-        await docRef.update({ 
-            estado: 'pagado', 
-            fechaPago: ahora 
-        });
-        
-        // Registrar en ventas
+        await docRef.update({ estado: 'pagado', fechaPago: ahora });
         await db.collection('ventas').add({
             pedidoId: pedidoId,
             mesa: pedido.mesa || 0,
@@ -240,15 +204,12 @@ async function marcarPagado(pedidoId) {
             fechaPago: ahora,
             mesero: pedido.mesero || 'Mesero'
         });
-        
-        console.log('✅ Pedido pagado y registrado en ventas');
     } catch (e) {
-        console.error('❌ Error al marcar pagado:', e);
+        console.error('Error:', e);
         alert('Error: ' + e.message);
     }
 }
 
-// ===== RENDERIZAR PEDIDOS =====
 function renderizarPedidos(snapshot) {
     const columnas = {
         'pendiente': document.getElementById('col-pendiente'),
@@ -256,37 +217,26 @@ function renderizarPedidos(snapshot) {
         'finalizado': document.getElementById('col-finalizado')
     };
     
-    // Limpiar
     Object.values(columnas).forEach(col => col.innerHTML = '');
-    
     let conteo = { pendiente: 0, en_proceso: 0, finalizado: 0 };
-    
-    if (snapshot.empty) {
-        console.log('📡 Snapshot vacío');
-    }
     
     snapshot.forEach(doc => {
         const pedido = doc.data();
         const id = doc.id;
         const estado = pedido.estado;
         
-        // Saltar no activos
         if (estado === 'pagado' || estado === 'cancelado') return;
         
-        // Determinar columna
         let columnaDestino;
         if (estado === 'pendiente') columnaDestino = 'pendiente';
         else if (estado === 'en_proceso') columnaDestino = 'en_proceso';
         else columnaDestino = 'finalizado';
         
-        // Crear tarjeta
         const card = document.createElement('div');
         card.className = 'order-card';
         card.draggable = true;
         card.dataset.id = id;
         card.addEventListener('dragstart', drag);
-        
-        // Click para expandir (solo si no es botón)
         card.addEventListener('click', function(e) {
             if (e.target.tagName !== 'BUTTON') {
                 this.classList.toggle('expanded');
@@ -317,45 +267,26 @@ function renderizarPedidos(snapshot) {
         conteo[columnaDestino]++;
     });
     
-    // Actualizar contadores
     document.getElementById('count-pendiente').textContent = conteo.pendiente;
     document.getElementById('count-proceso').textContent = conteo.en_proceso;
     document.getElementById('count-finalizado').textContent = conteo.finalizado;
     
-    console.log('📊 Renderizado:', conteo);
-    
-    // Actualizar ventas del día
     calcularVentasDia();
 }
 
-// ===== MANEJADOR DE CLICS EN BOTONES =====
 function manejarClick(event, accion, id) {
     event.stopPropagation();
     event.preventDefault();
-    
-    console.log('🖱️ Botón:', accion, 'ID:', id);
-    
     if (!validarId(id)) return;
     
     switch(accion) {
-        case 'preparar':
-            actualizarEstado(id, 'en_proceso');
-            break;
-        case 'finalizar':
-            actualizarEstado(id, 'finalizado');
-            break;
-        case 'pagar':
-            marcarPagado(id);
-            break;
-        case 'cancelar':
-            actualizarEstado(id, 'cancelado');
-            break;
-        default:
-            console.error('❌ Acción desconocida:', accion);
+        case 'preparar': actualizarEstado(id, 'en_proceso'); break;
+        case 'finalizar': actualizarEstado(id, 'finalizado'); break;
+        case 'pagar': marcarPagado(id); break;
+        case 'cancelar': actualizarEstado(id, 'cancelado'); break;
     }
 }
 
-// ===== VENTAS DEL DÍA =====
 async function calcularVentasDia() {
     try {
         const hoy = new Date();
@@ -369,26 +300,19 @@ async function calcularVentasDia() {
         
         let total = 0;
         snapshot.forEach(doc => total += doc.data().total || 0);
-        
         document.getElementById('ventas-dia').textContent = `$${total.toFixed(2)}`;
     } catch (e) {
-        console.error('Error al calcular ventas:', e);
+        console.error('Error:', e);
     }
 }
-
-// ===== LISTENER EN TIEMPO REAL =====
-console.log('🍳 Iniciando listener de cocina...');
 
 db.collection('pedidos')
     .where('estado', 'in', ['pendiente', 'en_proceso', 'finalizado'])
     .onSnapshot(
-        snapshot => {
-            console.log('📡 Snapshot:', snapshot.size, 'documentos');
-            renderizarPedidos(snapshot);
-        },
+        snapshot => renderizarPedidos(snapshot),
         error => {
-            console.error('❌ Error en listener:', error);
-            alert('Error de conexión con Firebase. Verifica tu conexión o desactiva el bloqueador de anuncios.');
+            console.error('Error en listener:', error);
+            alert('Error de conexión con Firebase.');
         }
     );
 </script>

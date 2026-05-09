@@ -1,4 +1,4 @@
-let cart = JSON.parse(localStorage.getItem('cart_hilln')) || [];
+let cart = JSON.parse(localStorage.getItem('cart_esquina')) || [];
 const cartSidebar = document.getElementById('cart-sidebar');
 const cartOverlay = document.getElementById('cart-overlay');
 const cartItemsContainer = document.getElementById('cart-items');
@@ -44,7 +44,7 @@ function updateQuantity(id, change) {
 }
 
 function emptyCart() {
-    if (confirm('¿Vaciar el carrito?')) {
+    if (confirm('¿Desea vaciar el carrito?')) {
         cart = [];
         document.getElementById('client-name').value = '';
         document.getElementById('delivery-method').value = '';
@@ -54,17 +54,17 @@ function emptyCart() {
 }
 
 function saveAndRenderCart() {
-    localStorage.setItem('cart_hilln', JSON.stringify(cart));
+    localStorage.setItem('cart_esquina', JSON.stringify(cart));
     cartItemsContainer.innerHTML = '';
     let total = 0, totalItems = 0;
 
     if (cart.length === 0) {
         cartItemsContainer.innerHTML = `
-🍖
-
-Tu carrito está vacío
-
-`;
+            <div style="text-align:center;padding:40px;color:var(--text-muted);">
+                <p style="font-size:3rem;margin-bottom:10px;">🍲</p>
+                <p style="font-family:'Playfair Display',serif;font-size:1.1rem;">Tu carrito está vacío</p>
+                <p style="font-size:0.85rem;margin-top:5px;">¡Agrega algo delicioso!</p>
+            </div>`;
         btnWhatsApp.disabled = true;
         btnWhatsApp.style.opacity = '0.5';
         btnEmpty.style.display = 'none';
@@ -78,27 +78,17 @@ Tu carrito está vacío
             total += subtotal;
             totalItems += item.quantity;
             cartItemsContainer.innerHTML += `
-                
-
-                    
-${item.name}
-
-                    
-
-                        
-
-                            −
-                            ${item.quantity}
-                            +
-                        
-
-                        
-$${subtotal.toFixed(2)}
-
-                    
-
-                
-`;
+                <div class="cart-item">
+                    <div class="cart-item-title">${item.name}</div>
+                    <div class="cart-item-controls">
+                        <div class="qty-controls">
+                            <button class="qty-btn" onclick="updateQuantity('${item.id}', -1)">−</button>
+                            <span>${item.quantity}</span>
+                            <button class="qty-btn" onclick="updateQuantity('${item.id}', 1)">+</button>
+                        </div>
+                        <div class="item-price">$${subtotal.toFixed(2)}</div>
+                    </div>
+                </div>`;
         });
     }
     cartCountElement.innerText = totalItems;
@@ -140,16 +130,16 @@ async function sendWhatsApp() {
     }
 
     const phone = '50370483939';
-    let messageText = `NUEVO PEDIDO: HILL 'N GRILL\n\n`;
-    messageText += `Cliente: ${clientName}\n`;
-    messageText += `Modalidad: ${deliveryMethod}\n\n`;
+    let messageText = `🍲 NUEVO PEDIDO: LA ESQUINA DEL SABOR\n\n`;
+    messageText += `👤 Cliente: ${clientName}\n`;
+    messageText += `🚗 Modalidad: ${deliveryMethod}\n\n`;
     cart.forEach(item => {
-        messageText += ` ${item.quantity}x ${item.name} - $${(item.price * item.quantity).toFixed(2)}\n`;
+        messageText += `• ${item.quantity}x ${item.name} - $${(item.price * item.quantity).toFixed(2)}\n`;
     });
-    messageText += `\nTOTAL: $${totalOrder}\n`;
-    messageText += `Pago: ${paymentMethod}\n`;
-    if (locationDetails) messageText += `Notas: ${locationDetails}\n`;
-    messageText += '\n¡Gracias por visitarnos en Hill \'N Grill!';
+    messageText += `\n💰 TOTAL: $${totalOrder}\n`;
+    messageText += `💳 Pago: ${paymentMethod}\n`;
+    if (locationDetails) messageText += `📝 Notas: ${locationDetails}\n`;
+    messageText += '\n¡Gracias por preferir La Esquina del Sabor! 🏠✨';
 
     window.open(`https://wa.me/${phone}?text=${encodeURIComponent(messageText)}`, '_blank');
 }
@@ -169,7 +159,7 @@ function initCarousel() {
     for (let i = 0; i < carouselTotal; i++) {
         const dot = document.createElement('button');
         dot.className = 'dot' + (i === 0 ? ' active' : '');
-        dot.setAttribute('aria-label', `Ir a slide ${i + 1}`);
+        dot.setAttribute('aria-label', `Ir a promoción ${i + 1}`);
         dot.onclick = () => goToSlide(i);
         dotsContainer.appendChild(dot);
     }

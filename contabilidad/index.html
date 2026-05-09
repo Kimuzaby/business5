@@ -3,40 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contabilidad | Hill 'N Grill</title>
+    <title>Contabilidad | La Esquina del Sabor</title>
     <link rel="icon" type="image/jpg" href="../img/logo.jpg">
     <style>
         :root {
-            --green: #4A7C3F; --green-dark: #2F5028; --amber: #D4A017;
-            --charcoal: #1C1C1C; --dark: #111111; --card-bg: #222222;
-            --surface: #2A2A2A; --text: #F0EDE8; --text-muted: #9A9A8A;
-            --border: #3A3A3A; --radius: 8px;
+            --primary: #8B4513;
+            --primary-dark: #654321;
+            --accent: #DAA520;
+            --charcoal: #2C1810;
+            --dark: #1A0F0A;
+            --card-bg: #3B2314;
+            --surface: #4A3520;
+            --text: #FFF8F0;
+            --text-muted: #C4A882;
+            --border: #5C4033;
+            --radius: 8px;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Segoe UI', sans-serif; background: var(--dark); color: var(--text); }
-        .top-bar { background: var(--charcoal); border-bottom: 2px solid var(--amber); padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; }
-        .top-bar h1 { font-size: 1.3rem; color: var(--amber); }
+        .top-bar { background: var(--charcoal); border-bottom: 2px solid var(--accent); padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; }
+        .top-bar h1 { font-size: 1.3rem; color: var(--accent); }
         .nav-tabs { display: flex; gap: 5px; padding: 15px 20px; background: var(--card-bg); border-bottom: 1px solid var(--border); flex-wrap: wrap; }
         .nav-tab { padding: 8px 18px; background: var(--surface); border: 1px solid var(--border); color: var(--text-muted); border-radius: 50px; cursor: pointer; font-weight: 600; font-size: 0.85rem; }
-        .nav-tab.active { background: var(--amber); color: var(--dark); border-color: var(--amber); }
+        .nav-tab.active { background: var(--accent); color: var(--dark); border-color: var(--accent); }
         .section { display: none; padding: 20px; max-width: 1200px; margin: 0 auto; }
         .section.active { display: block; }
         .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; margin-bottom: 20px; }
-        .card h2 { color: var(--amber); margin-bottom: 15px; font-size: 1.2rem; }
+        .card h2 { color: var(--accent); margin-bottom: 15px; font-size: 1.2rem; }
         table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
-        th { text-align: left; padding: 10px; border-bottom: 2px solid var(--border); color: var(--green); font-size: 0.8rem; text-transform: uppercase; }
+        th { text-align: left; padding: 10px; border-bottom: 2px solid var(--border); color: var(--primary); font-size: 0.8rem; text-transform: uppercase; }
         td { padding: 10px; border-bottom: 1px solid var(--border); }
-        .amount { color: var(--amber); font-weight: 700; }
+        .amount { color: var(--accent); font-weight: 700; }
         .amount.negative { color: #ff5252; }
         .form-group { margin-bottom: 15px; }
         .form-group label { display: block; margin-bottom: 5px; font-weight: 600; font-size: 0.9rem; color: var(--text-muted); }
         .form-group input, .form-group select { width: 100%; padding: 10px; background: var(--surface); border: 1px solid var(--border); color: var(--text); border-radius: var(--radius); font-size: 0.95rem; }
-        .form-group input:focus, .form-group select:focus { outline: none; border-color: var(--amber); }
+        .form-group input:focus, .form-group select:focus { outline: none; border-color: var(--accent); }
         .form-row { display: flex; gap: 15px; flex-wrap: wrap; }
         .form-row .form-group { flex: 1; min-width: 150px; }
         .btn { padding: 10px 20px; border: none; border-radius: var(--radius); cursor: pointer; font-weight: 700; font-size: 0.9rem; margin: 2px; }
-        .btn-amber { background: var(--amber); color: var(--dark); }
-        .btn-green { background: var(--green); color: #fff; }
+        .btn-accent { background: var(--accent); color: var(--dark); }
+        .btn-green { background: #4CAF50; color: #fff; }
         .btn-red { background: #C0392B; color: #fff; }
         .btn-blue { background: #2196F3; color: #fff; }
         .btn:hover { opacity: 0.9; }
@@ -44,18 +51,18 @@
         .summary-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; text-align: center; }
         .summary-card .label { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 8px; }
         .summary-card .value { font-size: 1.8rem; font-weight: 700; }
-        .summary-card .value.green { color: var(--green); }
-        .summary-card .value.amber { color: var(--amber); }
+        .summary-card .value.green { color: #4CAF50; }
+        .summary-card .value.accent { color: var(--accent); }
         .summary-card .value.red { color: #ff5252; }
         .report-type-selector { display: flex; gap: 10px; margin-bottom: 15px; flex-wrap: wrap; }
         .report-type-btn { padding: 10px 20px; background: var(--surface); border: 2px solid var(--border); color: var(--text); border-radius: 50px; cursor: pointer; font-weight: 700; }
-        .report-type-btn.active { border-color: var(--amber); background: var(--amber); color: var(--dark); }
+        .report-type-btn.active { border-color: var(--accent); background: var(--accent); color: var(--dark); }
     </style>
 </head>
 <body>
 
 <div class="top-bar">
-    <h1>📊 Contabilidad · Hill 'N Grill</h1>
+    <h1>📊 Contabilidad · La Esquina del Sabor</h1>
     <a href="../index.html" style="color:var(--text-muted);text-decoration:none;">← Web Pública</a>
 </div>
 
@@ -67,30 +74,28 @@
     <button class="nav-tab" onclick="showSection('reportes')">📅 Reportes & Exportación</button>
 </div>
 
-<!-- ==================== DASHBOARD ==================== -->
 <div id="section-dashboard" class="section active">
     <div class="summary-grid">
         <div class="summary-card"><div class="label">Ventas Hoy</div><div class="value green" id="sum-ventas-hoy">$0.00</div></div>
         <div class="summary-card"><div class="label">Ventas Semana</div><div class="value green" id="sum-ventas-semana">$0.00</div></div>
         <div class="summary-card"><div class="label">Ventas Mes</div><div class="value green" id="sum-ventas-mes">$0.00</div></div>
-        <div class="summary-card"><div class="label">Inventario (Valor)</div><div class="value amber" id="sum-inventario">$0.00</div></div>
-        <div class="summary-card"><div class="label">Activos Fijos</div><div class="value amber" id="sum-activos">$0.00</div></div>
+        <div class="summary-card"><div class="label">Inventario (Valor)</div><div class="value accent" id="sum-inventario">$0.00</div></div>
+        <div class="summary-card"><div class="label">Activos Fijos</div><div class="value accent" id="sum-activos">$0.00</div></div>
         <div class="summary-card"><div class="label">Pedidos Hoy</div><div class="value" id="sum-pedidos-hoy">0</div></div>
     </div>
-    <div class="card"><h2>Últimas 10 Ventas (Histórico)</h2><div id="ultimas-ventas">Cargando...</div></div>
-
-    <!-- ===== GESTIÓN DE VENTAS DEL DÍA ===== -->
-    <div class="card" style="border: 2px solid var(--amber);">
+    <div class="card"><h2>Últimas 10 Ventas</h2><div id="ultimas-ventas">Cargando...</div></div>
+    
+    <div class="card" style="border: 2px solid var(--accent);">
         <h2 style="display:flex;justify-content:space-between;align-items:center;">
             <span>🔧 Gestión de Ventas del Día</span>
-            <span style="font-size:0.85rem;color:var(--text-muted);">Modo Pruebas / Admin</span>
+            <span style="font-size:0.85rem;color:var(--text-muted);">Modo Admin</span>
         </h2>
         <div class="summary-grid" style="margin-bottom:15px;">
-            <div class="summary-card" style="border:1px solid var(--amber);">
+            <div class="summary-card" style="border:1px solid var(--accent);">
                 <div class="label">Ventas Registradas Hoy</div>
                 <div class="value green" id="sum-ventas-hoy-gestion">$0.00</div>
             </div>
-            <div class="summary-card" style="border:1px solid var(--amber);">
+            <div class="summary-card" style="border:1px solid var(--accent);">
                 <div class="label">Pedidos Hoy</div>
                 <div class="value" id="sum-pedidos-hoy-gestion">0</div>
             </div>
@@ -102,31 +107,28 @@
         <div id="ventas-hoy-lista" style="overflow-x:auto;">
             <p style="color:var(--text-muted);text-align:center;padding:20px;">Haz clic en "Refrescar Lista" para cargar las ventas...</p>
         </div>
-        <p style="color:var(--text-muted);font-size:0.75rem;margin-top:10px;">⚠️ Esta sección es para pruebas y ajustes. Las eliminaciones son permanentes.</p>
     </div>
 </div>
 
-<!-- ==================== INVENTARIO ==================== -->
 <div id="section-inventario" class="section">
     <div class="card">
         <h2>➕ Agregar Ítem al Inventario</h2>
         <form id="form-inventario" onsubmit="addInventario(event)">
             <div class="form-row">
                 <div class="form-group"><label>Nombre del Producto</label><input type="text" id="inv-nombre" required></div>
-                <div class="form-group"><label>Categoría</label><select id="inv-categoria"><option>Insumos</option><option>Bebidas</option><option>Carnes</option><option>Lácteos</option><option>Verduras</option><option>Otros</option></select></div>
+                <div class="form-group"><label>Categoría</label><select id="inv-categoria"><option>Insumos</option><option>Bebidas</option><option>Carnes</option><option>Lácteos</option><option>Verduras</option><option>Mariscos</option><option>Otros</option></select></div>
             </div>
             <div class="form-row">
                 <div class="form-group"><label>Cantidad</label><input type="number" id="inv-cantidad" required></div>
                 <div class="form-group"><label>Unidad</label><select id="inv-unidad"><option>Unidad</option><option>Kg</option><option>Lb</option><option>Litro</option><option>Caja</option></select></div>
                 <div class="form-group"><label>Costo Unitario ($)</label><input type="number" id="inv-costo" step="0.01" required></div>
             </div>
-            <button type="submit" class="btn btn-amber">Agregar al Inventario</button>
+            <button type="submit" class="btn btn-accent">Agregar al Inventario</button>
         </form>
     </div>
     <div class="card"><h2>📦 Inventario Actual</h2><div id="tabla-inventario">Cargando...</div></div>
 </div>
 
-<!-- ==================== ACTIVOS FIJOS ==================== -->
 <div id="section-activos" class="section">
     <div class="card">
         <h2>➕ Registrar Activo Fijo</h2>
@@ -139,13 +141,12 @@
                 <div class="form-group"><label>Fecha de Compra</label><input type="date" id="act-fecha" required></div>
                 <div class="form-group"><label>Vida Útil (años)</label><input type="number" id="act-vida" value="5" required></div>
             </div>
-            <button type="submit" class="btn btn-amber">Registrar Activo</button>
+            <button type="submit" class="btn btn-accent">Registrar Activo</button>
         </form>
     </div>
     <div class="card"><h2>🏢 Activos Fijos Registrados</h2><div id="tabla-activos">Cargando...</div></div>
 </div>
 
-<!-- ==================== ESTADO DE RESULTADOS ==================== -->
 <div id="section-resultados" class="section">
     <div class="card">
         <h2>📋 Estado de Resultados</h2>
@@ -159,7 +160,6 @@
     </div>
 </div>
 
-<!-- ==================== REPORTES Y EXPORTACIÓN ==================== -->
 <div id="section-reportes" class="section">
     <div class="card">
         <h2>📅 Reportes & Exportación a Excel</h2>
@@ -200,7 +200,6 @@
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 <script>
-// Configuración de Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyDKmVDbSZcC6JwRG2eJkzPjf42aFVYdWg4",
   authDomain: "hill-n-grill.firebaseapp.com",
@@ -213,11 +212,9 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
-// Variables globales
 let reporteActual = { tipo: 'diario', datos: [] };
 let ventasHoyData = [];
 
-// ==================== NAVEGACIÓN ====================
 function showSection(name) {
     document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
     document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
@@ -226,7 +223,7 @@ function showSection(name) {
     if (name === 'dashboard') cargarDashboard();
 }
 
-// ==================== INVENTARIO ====================
+// INVENTARIO
 async function addInventario(e) {
     e.preventDefault();
     const item = {
@@ -262,7 +259,7 @@ async function cargarInventario() {
     document.getElementById('sum-inventario').textContent = `$${total.toFixed(2)}`;
 }
 
-// ==================== ACTIVOS FIJOS ====================
+// ACTIVOS FIJOS
 async function addActivo(e) {
     e.preventDefault();
     const valor = parseFloat(document.getElementById('act-valor').value);
@@ -301,7 +298,7 @@ async function cargarActivos() {
     document.getElementById('sum-activos').textContent = `$${total.toFixed(2)}`;
 }
 
-// ==================== ESTADO DE RESULTADOS ====================
+// ESTADO DE RESULTADOS
 async function calcularEstadoResultados() {
     const mes = parseInt(document.getElementById('er-mes').value);
     const anio = parseInt(document.getElementById('er-anio').value);
@@ -334,11 +331,11 @@ async function calcularEstadoResultados() {
             <tr><td>Costo de Ventas (Inventario)</td><td class="amount negative">-$${costoInventario.toFixed(2)}</td></tr>
             <tr style="font-weight:700;border-top:2px solid var(--border);"><td>UTILIDAD BRUTA</td><td class="amount">$${utilidadBruta.toFixed(2)}</td></tr>
             <tr><td>Gastos por Depreciación</td><td class="amount negative">-$${depreciacionTotal.toFixed(2)}</td></tr>
-            <tr style="font-weight:700;border-top:2px solid var(--amber);font-size:1.1rem;"><td>UTILIDAD NETA</td><td class="amount">$${utilidadNeta.toFixed(2)}</td></tr>
+            <tr style="font-weight:700;border-top:2px solid var(--accent);font-size:1.1rem;"><td>UTILIDAD NETA</td><td class="amount">$${utilidadNeta.toFixed(2)}</td></tr>
         </table>`;
 }
 
-// ==================== GESTIÓN DE VENTAS DEL DÍA ====================
+// GESTIÓN DE VENTAS
 async function cargarVentasHoy() {
     const hoy = new Date();
     const inicioDia = new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate());
@@ -360,7 +357,6 @@ async function cargarVentasHoy() {
                 id: doc.id,
                 fecha: v.fechaPago?.toDate().toLocaleString() || '-',
                 mesa: v.mesa || '-',
-                mesero: v.mesero || '-',
                 items: v.items?.map(i => `${i.quantity}x ${i.name}`).join('; ') || '-',
                 total: v.total || 0
             });
@@ -369,8 +365,8 @@ async function cargarVentasHoy() {
         
         renderVentasHoy(total);
     } catch (error) {
-        console.error('Error al cargar ventas:', error);
-        document.getElementById('ventas-hoy-lista').innerHTML = '<p style="color:#ff5252;">Error al cargar ventas. Revisa la consola.</p>';
+        console.error('Error:', error);
+        document.getElementById('ventas-hoy-lista').innerHTML = '<p style="color:#ff5252;">Error al cargar ventas.</p>';
     }
 }
 
@@ -380,13 +376,12 @@ function renderVentasHoy(total) {
     if (ventasHoyData.length === 0) {
         container.innerHTML = '<p style="color:var(--text-muted);text-align:center;padding:20px;">No hay ventas registradas hoy</p>';
     } else {
-        let html = '<table><tr><th>Fecha/Hora</th><th>Mesa</th><th>Mesero</th><th>Items</th><th>Total</th><th>Acción</th></tr>';
+        let html = '<table><tr><th>Fecha/Hora</th><th>Mesa</th><th>Items</th><th>Total</th><th>Acción</th></tr>';
         ventasHoyData.forEach((v, index) => {
             html += `
                 <tr>
                     <td>${v.fecha}</td>
                     <td>Mesa ${v.mesa}</td>
-                    <td>${v.mesero}</td>
                     <td style="font-size:0.8rem;">${v.items}</td>
                     <td class="amount">$${v.total.toFixed(2)}</td>
                     <td>
@@ -395,7 +390,7 @@ function renderVentasHoy(total) {
                 </tr>`;
         });
         html += `<tr style="font-weight:700;font-size:1.1rem;background:var(--surface);">
-            <td colspan="4">TOTAL DEL DÍA</td>
+            <td colspan="3">TOTAL DEL DÍA</td>
             <td class="amount">$${total.toFixed(2)}</td>
             <td></td>
         </tr></table>`;
@@ -407,61 +402,40 @@ function renderVentasHoy(total) {
 }
 
 async function eliminarVenta(id, index) {
-    if (!confirm(`¿Eliminar esta venta?\n\nMesa: ${ventasHoyData[index].mesa}\nTotal: $${ventasHoyData[index].total.toFixed(2)}\n\nEsta acción NO se puede deshacer.`)) {
-        return;
-    }
+    if (!confirm(`¿Eliminar esta venta?\n\nTotal: $${ventasHoyData[index].total.toFixed(2)}\n\nEsta acción NO se puede deshacer.`)) return;
     
     try {
         await db.collection('ventas').doc(id).delete();
         ventasHoyData.splice(index, 1);
         const nuevoTotal = ventasHoyData.reduce((sum, v) => sum + v.total, 0);
         renderVentasHoy(nuevoTotal);
-        
-        if (document.getElementById('section-dashboard').classList.contains('active')) {
-            cargarDashboard();
-        }
+        if (document.getElementById('section-dashboard').classList.contains('active')) cargarDashboard();
     } catch (error) {
-        console.error('Error al eliminar:', error);
+        console.error('Error:', error);
         alert('❌ Error al eliminar la venta.');
     }
 }
 
 async function eliminarTodasVentasHoy() {
-    if (ventasHoyData.length === 0) {
-        alert('No hay ventas para eliminar hoy. Haz clic en "Refrescar Lista" primero.');
-        return;
-    }
-    
-    if (!confirm(`⚠️ ¿Eliminar TODAS las ventas de hoy?\n\nSe eliminarán ${ventasHoyData.length} registros.\nTotal: $${ventasHoyData.reduce((s,v) => s + v.total, 0).toFixed(2)}\n\nEsta acción NO se puede deshacer.`)) {
-        return;
-    }
-    
-    if (!confirm('¿ESTÁS COMPLETAMENTE SEGURO? Esta acción es irreversible.')) {
-        return;
-    }
+    if (ventasHoyData.length === 0) { alert('No hay ventas para eliminar hoy.'); return; }
+    if (!confirm(`⚠️ ¿Eliminar TODAS las ventas de hoy?\n\n${ventasHoyData.length} registros serán eliminados.`)) return;
+    if (!confirm('¿ESTÁS COMPLETAMENTE SEGURO?')) return;
     
     try {
         const batch = db.batch();
-        ventasHoyData.forEach(v => {
-            batch.delete(db.collection('ventas').doc(v.id));
-        });
+        ventasHoyData.forEach(v => batch.delete(db.collection('ventas').doc(v.id)));
         await batch.commit();
-        
         ventasHoyData = [];
         renderVentasHoy(0);
-        
-        if (document.getElementById('section-dashboard').classList.contains('active')) {
-            cargarDashboard();
-        }
-        
-        alert('✅ Todas las ventas de hoy han sido eliminadas.');
+        if (document.getElementById('section-dashboard').classList.contains('active')) cargarDashboard();
+        alert('✅ Todas las ventas de hoy eliminadas.');
     } catch (error) {
-        console.error('Error al eliminar:', error);
+        console.error('Error:', error);
         alert('❌ Error al eliminar las ventas.');
     }
 }
 
-// ==================== REPORTES Y EXPORTACIÓN ====================
+// REPORTES
 function setReportType(tipo, btn) {
     reporteActual.tipo = tipo;
     document.querySelectorAll('.report-type-btn').forEach(b => b.classList.remove('active'));
@@ -493,7 +467,6 @@ async function generarReporte() {
         inicio = new Date(fecha.getFullYear(), fecha.getMonth(), fecha.getDate());
         fin = new Date(fecha.getFullYear(), fecha.getMonth(), fecha.getDate(), 23, 59, 59);
     } else if (tipo === 'semanal') {
-        const anio = parseInt(document.getElementById('rep-anio').value) || hoy.getFullYear();
         inicio = new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate() - hoy.getDay());
         fin = new Date(inicio.getFullYear(), inicio.getMonth(), inicio.getDate() + 6, 23, 59, 59);
     } else if (tipo === 'mensual') {
@@ -522,7 +495,6 @@ async function generarReporte() {
             id: doc.id,
             fecha: v.fechaPago?.toDate().toLocaleString() || '-',
             mesa: v.mesa || '-',
-            mesero: v.mesero || '-',
             items: v.items?.map(i => `${i.quantity}x ${i.name}`).join('; ') || '-',
             total: v.total || 0
         });
@@ -533,7 +505,7 @@ async function generarReporte() {
         <div class="summary-grid" style="margin-bottom:0;">
             <div class="summary-card"><div class="label">Total Ventas</div><div class="value green">$${total.toFixed(2)}</div></div>
             <div class="summary-card"><div class="label">Pedidos</div><div class="value">${reporteActual.datos.length}</div></div>
-            <div class="summary-card"><div class="label">Ticket Promedio</div><div class="value amber">$${reporteActual.datos.length ? (total/reporteActual.datos.length).toFixed(2) : '0.00'}</div></div>
+            <div class="summary-card"><div class="label">Ticket Promedio</div><div class="value accent">$${reporteActual.datos.length ? (total/reporteActual.datos.length).toFixed(2) : '0.00'}</div></div>
             <div class="summary-card"><div class="label">Período</div><div class="value" style="font-size:1rem;">${inicio.toLocaleDateString()} → ${fin.toLocaleDateString()}</div></div>
         </div>`;
     
@@ -548,16 +520,16 @@ async function generarReporte() {
 function exportarCSV() {
     if (reporteActual.datos.length === 0) { alert('No hay datos para exportar'); return; }
     
-    let csv = 'Fecha,Mesa,Mesero,Items,Total\n';
+    let csv = 'Fecha,Mesa,Items,Total\n';
     reporteActual.datos.forEach(d => {
-        csv += `"${d.fecha}","Mesa ${d.mesa}","${d.mesero}","${d.items.replace(/"/g,'""')}",$${d.total.toFixed(2)}\n`;
+        csv += `"${d.fecha}","Mesa ${d.mesa}","${d.items.replace(/"/g,'""')}",$${d.total.toFixed(2)}\n`;
     });
     
     const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `Reporte_HillNGrill_${new Date().toISOString().slice(0,10)}.csv`;
+    a.download = `Reporte_EsquinaDelSabor_${new Date().toISOString().slice(0,10)}.csv`;
     a.click();
     URL.revokeObjectURL(url);
 }
@@ -565,15 +537,15 @@ function exportarCSV() {
 function imprimirReporte() {
     const contenido = document.getElementById('reporte-resumen').innerHTML + document.getElementById('reporte-contenido').innerHTML;
     const ventana = window.open('', '', 'width=900,height=700');
-    ventana.document.write('<html><head><title>Reporte Hill N Grill</title><style>body{font-family:sans-serif;padding:20px;}table{width:100%;border-collapse:collapse;}th,td{padding:8px;border:1px solid #ddd;text-align:left;}th{background:#4A7C3F;color:white;}.amount{color:#D4A017;font-weight:700;}</style></head><body>');
-    ventana.document.write('<h1>🏔️ Hill N Grill - Reporte</h1>');
+    ventana.document.write('<html><head><title>Reporte La Esquina del Sabor</title><style>body{font-family:sans-serif;padding:20px;}table{width:100%;border-collapse:collapse;}th,td{padding:8px;border:1px solid #ddd;text-align:left;}th{background:#8B4513;color:white;}.amount{color:#DAA520;font-weight:700;}</style></head><body>');
+    ventana.document.write('<h1>🍲 La Esquina del Sabor - Reporte</h1>');
     ventana.document.write(contenido);
     ventana.document.write('</body></html>');
     ventana.document.close();
     ventana.print();
 }
 
-// ==================== DASHBOARD ====================
+// DASHBOARD
 async function cargarDashboard() {
     const hoy = new Date();
     const inicioDia = new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate());
@@ -581,7 +553,6 @@ async function cargarDashboard() {
     const inicioSemana = new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate() - hoy.getDay());
     const inicioMes = new Date(hoy.getFullYear(), hoy.getMonth(), 1);
     
-    // Ventas del día
     const ventasDiaSnap = await db.collection('ventas')
         .where('fechaPago', '>=', firebase.firestore.Timestamp.fromDate(inicioDia))
         .where('fechaPago', '<=', firebase.firestore.Timestamp.fromDate(finDia))
@@ -589,21 +560,18 @@ async function cargarDashboard() {
     let ventasDia = 0;
     ventasDiaSnap.forEach(d => ventasDia += d.data().total || 0);
     
-    // Ventas de la semana
     const ventasSemanaSnap = await db.collection('ventas')
         .where('fechaPago', '>=', firebase.firestore.Timestamp.fromDate(inicioSemana))
         .get();
     let ventasSemana = 0;
     ventasSemanaSnap.forEach(d => ventasSemana += d.data().total || 0);
     
-    // Ventas del mes
     const ventasMesSnap = await db.collection('ventas')
         .where('fechaPago', '>=', firebase.firestore.Timestamp.fromDate(inicioMes))
         .get();
     let ventasMes = 0;
     ventasMesSnap.forEach(d => ventasMes += d.data().total || 0);
     
-    // Últimas 10 ventas
     const ultimasSnap = await db.collection('ventas').orderBy('fechaPago', 'desc').limit(10).get();
     let html = '<table><tr><th>Fecha</th><th>Mesa</th><th>Items</th><th>Total</th></tr>';
     ultimasSnap.forEach(d => {
@@ -619,12 +587,10 @@ async function cargarDashboard() {
     document.getElementById('sum-pedidos-hoy').textContent = ventasDiaSnap.size;
     document.getElementById('ultimas-ventas').innerHTML = html;
     
-    // Cargar también inventario y activos
     cargarInventario();
     cargarActivos();
 }
 
-// ==================== UTILIDADES ====================
 async function deleteDoc(coleccion, id) {
     if (confirm('¿Eliminar este registro permanentemente?')) {
         await db.collection(coleccion).doc(id).delete();
@@ -633,7 +599,7 @@ async function deleteDoc(coleccion, id) {
     }
 }
 
-// ==================== INICIALIZACIÓN ====================
+// Inicialización
 cargarDashboard();
 const ahora = new Date();
 document.getElementById('er-mes').value = ahora.getMonth();

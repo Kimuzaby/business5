@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cotiza tu Evento | Hill 'N Grill</title>
+    <title>Cotiza tu Evento | La Esquina del Sabor</title>
     <link rel="icon" type="image/jpg" href="../img/logo.jpg">
     <link rel="stylesheet" href="../style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -14,11 +14,11 @@
 <header>
     <nav>
         <a href="../index.html" class="logo-container">
-            <img src="../img/logo.jpg" alt="Hill N Grill" class="logo-img">
+            <img src="../img/logo.jpg" alt="La Esquina del Sabor" class="logo-img">
             <div class="logo-text-wrap">
-                <span class="logo-tag">Restaurante & Bar</span>
-                <span class="logo-name">Hill 'N Grill</span>
-                <span class="logo-sub">Café y Bar</span>
+                <span class="logo-tag">Una experiencia inolvidable</span>
+                <span class="logo-name">La Esquina del Sabor</span>
+                <span class="logo-sub">Restaurante Tradicional</span>
             </div>
         </a>
         <a href="../index.html" class="btn-back">← Volver al Menú</a>
@@ -27,8 +27,8 @@
 
 <main>
     <section class="quote-header">
-        <h1>Cotiza tu Evento</h1>
-        <p>Bodas, cumpleaños, corporativos y más · Cotización inmediata</p>
+        <h1>Cotiza tu Evento Especial</h1>
+        <p>Bautizos, cumpleaños, primeras comuniones y más · Cotización inmediata</p>
         <br>
     </section>
 
@@ -51,11 +51,11 @@
                     <label for="event-type">Tipo de evento</label>
                     <select id="event-type" required>
                         <option value="">Selecciona...</option>
-                        <option value="Boda">Boda</option>
+                        <option value="Bautizo">Bautizo</option>
                         <option value="Cumpleaños">Cumpleaños</option>
-                        <option value="Corporativo">Corporativo</option>
-                        <option value="Quinceañera">Quinceañera</option>
-                        <option value="Graduación">Graduación</option>
+                        <option value="Primera Comunión">Primera Comunión</option>
+                        <option value="Reunión Familiar">Reunión Familiar</option>
+                        <option value="Aniversario">Aniversario</option>
                         <option value="Otro">Otro</option>
                     </select>
                 </div>
@@ -70,21 +70,21 @@
                     <label for="event-menu">Menú del Evento</label>
                     <select id="event-menu" onchange="calculateTotal()" required>
                         <option value="" data-price="0">Selecciona un menú...</option>
-                        <option value="Menú Típico (Pollo)" data-price="5">Menú Típico Pollo - $5.00 c/u</option>
-                        <option value="Menú de Carne" data-price="7">Menú de Carne a la Parrilla - $7.00 c/u</option>
-                        <option value="Menú Mar y Tierra" data-price="9">Menú Mar y Tierra - $9.00 c/u</option>
-                        <option value="Menú Pelibuey Premium" data-price="12">Menú Pelibuey Premium - $12.00 c/u</option>
+                        <option value="Menú Tradicional (Pollo)" data-price="4">Menú Tradicional (Pollo) - $4.00 c/u</option>
+                        <option value="Menú Especial (Carne)" data-price="6">Menú Especial (Carne) - $6.00 c/u</option>
+                        <option value="Menú Del Mar" data-price="8">Menú Del Mar - $8.00 c/u</option>
+                        <option value="Menú Premium" data-price="10">Menú Premium - $10.00 c/u</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="event-guests">Cantidad de personas</label>
+                    <label for="event-guests">Cantidad de invitados</label>
                     <input type="number" id="event-guests" min="1" placeholder="Ej: 30" oninput="calculateTotal()" required>
                 </div>
             </div>
 
             <div class="live-quote-box">
                 <div class="live-quote-row"><span>Subtotal Platillos:</span><span id="calc-subtotal">$0.00</span></div>
-                <div class="live-quote-row"><span>Logística y Servicio:</span><span id="calc-service">$0.00</span></div>
+                <div class="live-quote-row"><span>Servicio y Logística:</span><span id="calc-service">$0.00</span></div>
                 <div class="live-quote-total"><span>Total Estimado:</span><span id="calc-total">$0.00</span></div>
             </div>
 
@@ -98,9 +98,9 @@
 
 <footer>
     <div class="footer-inner">
-        <div class="footer-logo">Hill 'N Grill</div>
-        <div class="footer-sub">Restaurante · Café · Bar</div>
-        <p class="footer-copy">© 2026 <strong>Hill 'N Grill</strong> · El Salvador.</p>
+        <div class="footer-logo">La Esquina del Sabor</div>
+        <div class="footer-sub">Una experiencia inolvidable a tu paladar</div>
+        <p class="footer-copy">© 2026 <strong>La Esquina del Sabor</strong> · El Salvador.</p>
     </div>
 </footer>
 
@@ -110,7 +110,7 @@ function calculateTotal() {
     const price = parseFloat(menuSelect.options[menuSelect.selectedIndex].dataset.price || 0);
     const guests = parseInt(document.getElementById('event-guests').value || 0);
     const subtotal = price * guests;
-    const serviceFee = subtotal > 0 ? 25.00 : 0.00;
+    const serviceFee = subtotal > 0 ? 20.00 : 0.00;
     const total = subtotal + serviceFee;
     document.getElementById('calc-subtotal').innerText = `$${subtotal.toFixed(2)}`;
     document.getElementById('calc-service').innerText = `$${serviceFee.toFixed(2)}`;
@@ -133,30 +133,31 @@ function processQuote(event) {
     const pageW = doc.internal.pageSize.getWidth();
     const margin = 40;
     const contentW = pageW - margin * 2;
-    const green = [74, 124, 63];
-    const dark = [17, 17, 17];
-    const amber = [212, 160, 23];
-    const grey = [100, 100, 100];
-    const lightBg = [245, 250, 245];
+    const primary = [139, 69, 19];
+    const dark = [26, 15, 10];
+    const accent = [218, 165, 32];
+    const grey = [120, 100, 80];
+    const lightBg = [252, 248, 240];
     let y = margin;
 
-    doc.setFillColor(...green);
+    // Header
+    doc.setFillColor(...primary);
     doc.rect(0, 0, pageW, 75, 'F');
     doc.setFont('helvetica', 'bold');
-    doc.setFontSize(30);
+    doc.setFontSize(26);
     doc.setTextColor(255, 255, 255);
-    doc.text("Hill 'N Grill", pageW / 2, 34, { align: 'center' });
+    doc.text('La Esquina del Sabor', pageW / 2, 32, { align: 'center' });
     doc.setFontSize(9);
-    doc.setCharSpace(4);
-    doc.text('RESTAURANTE · CAFÉ · BAR', pageW / 2, 50, { align: 'center' });
-    doc.setCharSpace(0);
+    doc.setFont('helvetica', 'italic');
+    doc.text('"Una experiencia inolvidable a tu paladar"', pageW / 2, 48, { align: 'center' });
+    doc.setFont('helvetica', 'bold');
     doc.setFontSize(10);
-    doc.setFont('helvetica', 'normal');
     doc.text('COTIZACIÓN DE EVENTO', pageW / 2, 65, { align: 'center' });
 
+    // Datos del cliente
     y = 100;
     doc.setFillColor(...lightBg);
-    doc.setDrawColor(200, 220, 200);
+    doc.setDrawColor(200, 180, 150);
     doc.roundedRect(margin, y, contentW, 85, 6, 6, 'FD');
 
     doc.setFontSize(8); doc.setTextColor(...grey); doc.setFont('helvetica','normal');
@@ -178,57 +179,60 @@ function processQuote(event) {
     doc.setFontSize(11); doc.setTextColor(...dark); doc.setFont('helvetica','bold');
     doc.text(date, col2x, y+66);
 
+    // Tabla
     y += 105;
     doc.autoTable({
         startY: y, margin: { left: margin, right: margin },
         head: [['Descripción del Servicio','Cantidad','Precio Unit.','Total']],
         body: [
-            [menuName, `${totals.guests} personas`, `$${totals.price.toFixed(2)}`, `$${totals.subtotal.toFixed(2)}`],
-            ['Logística, Transporte y Servicio', '1 evento', '$25.00', `$${totals.serviceFee.toFixed(2)}`]
+            [menuName, `${totals.guests} invitados`, `$${totals.price.toFixed(2)}`, `$${totals.subtotal.toFixed(2)}`],
+            ['Servicio y Logística', '1 evento', '$20.00', `$${totals.serviceFee.toFixed(2)}`]
         ],
-        headStyles: { fillColor: green, textColor: [255,255,255], fontStyle: 'bold', fontSize: 10, halign: 'center' },
+        headStyles: { fillColor: primary, textColor: [255,255,255], fontStyle: 'bold', fontSize: 10, halign: 'center' },
         columnStyles: { 0:{halign:'left',cellWidth:230}, 1:{halign:'center',cellWidth:100}, 2:{halign:'right',cellWidth:90}, 3:{halign:'right',cellWidth:90} },
         bodyStyles: { fontSize: 10, textColor: dark },
-        alternateRowStyles: { fillColor: [245, 250, 240] },
+        alternateRowStyles: { fillColor: [252, 248, 240] },
         theme: 'striped'
     });
 
+    // Total
     y = doc.lastAutoTable.finalY + 20;
     const boxW = 240, boxX = pageW - margin - boxW;
-    doc.setFillColor(...lightBg); doc.setDrawColor(180, 210, 180);
+    doc.setFillColor(...lightBg); doc.setDrawColor(200, 180, 150);
     doc.roundedRect(boxX, y, boxW, 80, 6, 6, 'FD');
     doc.setFontSize(10); doc.setFont('helvetica','normal'); doc.setTextColor(...grey);
     doc.text('Subtotal platillos:', boxX+15, y+22);
     doc.setTextColor(...dark); doc.text(`$${totals.subtotal.toFixed(2)}`, boxX+boxW-15, y+22, { align:'right' });
-    doc.setTextColor(...grey); doc.text('Logística y servicio:', boxX+15, y+40);
+    doc.setTextColor(...grey); doc.text('Servicio y logística:', boxX+15, y+40);
     doc.setTextColor(...dark); doc.text(`$${totals.serviceFee.toFixed(2)}`, boxX+boxW-15, y+40, { align:'right' });
-    doc.setDrawColor(...amber); doc.setLineWidth(1.2);
+    doc.setDrawColor(...accent); doc.setLineWidth(1.2);
     doc.line(boxX+10, y+52, boxX+boxW-10, y+52);
-    doc.setFontSize(13); doc.setFont('helvetica','bold'); doc.setTextColor(...green);
+    doc.setFontSize(13); doc.setFont('helvetica','bold'); doc.setTextColor(...primary);
     doc.text('TOTAL ESTIMADO:', boxX+15, y+70);
     doc.text(`$${totals.total.toFixed(2)}`, boxX+boxW-15, y+70, { align:'right' });
 
+    // Mensaje final
     y += 105;
-    doc.setFillColor(240, 248, 240); doc.setDrawColor(180, 210, 180);
+    doc.setFillColor(252, 248, 240); doc.setDrawColor(200, 180, 150);
     doc.setLineDashPattern([4,2], 0);
     doc.roundedRect(margin, y, contentW, 60, 6, 6, 'FD');
     doc.setLineDashPattern([], 0);
-    doc.setFontSize(13); doc.setFont('helvetica','bold'); doc.setTextColor(...dark);
-    doc.text("¡Gracias por elegir Hill 'N Grill para su evento!", pageW/2, y+24, { align:'center' });
-    doc.setFontSize(10); doc.setFont('helvetica','normal'); doc.setTextColor(...grey);
-    doc.text('"Sabor a la parrilla con vista panorámica"', pageW/2, y+42, { align:'center' });
+    doc.setFontSize(12); doc.setFont('helvetica','bold'); doc.setTextColor(...dark);
+    doc.text('¡Gracias por elegir La Esquina del Sabor para su evento!', pageW/2, y+24, { align:'center' });
+    doc.setFontSize(9); doc.setFont('helvetica','italic'); doc.setTextColor(...grey);
+    doc.text('"Una experiencia inolvidable a tu paladar"', pageW/2, y+42, { align:'center' });
 
     y += 80;
-    doc.setFontSize(8); doc.setTextColor(160,160,160);
-    doc.text('Cotización válida por 15 días. Para confirmar, adjunte este PDF en nuestro WhatsApp.', pageW/2, y, { align:'center' });
+    doc.setFontSize(8); doc.setTextColor(160,140,120);
+    doc.text('Cotización válida por 15 días. Adjunte este PDF en nuestro WhatsApp para confirmar.', pageW/2, y, { align:'center' });
 
-    const filename = `Cotizacion_HillNGrill_${name.replace(/\s+/g,'_')}.pdf`;
+    const filename = `Cotizacion_EsquinaDelSabor_${name.replace(/\s+/g,'_')}.pdf`;
     doc.save(filename);
 
     setTimeout(() => {
-        alert("¡Tu cotización se descargó exitosamente!\n\nSerás redirigido a WhatsApp. Por favor ADJUNTA EL PDF para proceder.");
+        alert("¡Tu cotización se descargó exitosamente!\n\nSerás redirigido a WhatsApp. Adjunta el PDF para proceder.");
         const whatsappNumber = '50370483939';
-        const message = `¡Hola Hill 'N Grill!\n\nAcabo de generar una cotización en su sitio web para un evento (${eventType}) a nombre de ${name}.\n\nAdjunto el PDF con los detalles para proceder con la reservación. ¡Gracias!`;
+        const message = `¡Hola La Esquina del Sabor!\n\nAcabo de generar una cotización para un evento (${eventType}) a nombre de ${name}.\n\nAdjunto el PDF con los detalles. ¡Gracias!`;
         window.location.href = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
     }, 800);
 }
