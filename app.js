@@ -108,59 +108,42 @@ async function sendWhatsApp() {
 
     const totalOrder = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2);
 
-    const orderData = {
-        id_pedido: Date.now(),
-        fecha: new Date().toLocaleString(),
-        cliente: clientName,
-        items: cart.map(item => `${item.quantity}x ${item.name}`).join(', '),
-        total: totalOrder,
-        metodo_entrega: deliveryMethod,
-        pago: paymentMethod,
-        notas: locationDetails
-    };
-
-    try {
-        await fetch('https://sheetdb.io/api/v1/5r8sg0dmxgzp0', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ data: [orderData] })
-        });
-    } catch (error) {
-        console.error('Error al registrar en Sheets:', error);
-    }
-
     const phone = '50370483939';
     
-    // Construir mensaje simple y compatible con iOS
-    let messageText = `*NUEVO PEDIDO - LA ESQUINA DEL SABOR* 🍲\n\n`;
-    messageText += `*Cliente:* ${clientName}\n`;
-    messageText += `*Modalidad:* ${deliveryMethod}\n\n`;
-    messageText += `*PEDIDO:*\n`;
+    // Construir mensaje - SIN asteriscos, SIN formato especial
+    let messageText = '🍲 NUEVO PEDIDO - LA ESQUINA DEL SABOR 🍲';
+    messageText += '%0A%0A';
+    messageText += 'Cliente: ' + clientName;
+    messageText += '%0A';
+    messageText += 'Modalidad: ' + deliveryMethod;
+    messageText += '%0A%0A';
+    messageText += '--- PEDIDO ---';
+    messageText += '%0A';
+    
     cart.forEach(item => {
-        messageText += `• ${item.quantity}x ${item.name} - $${(item.price * item.quantity).toFixed(2)}\n`;
+        const subtotal = (item.price * item.quantity).toFixed(2);
+        messageText += '- ' + item.quantity + 'x ' + item.name + ' = $' + subtotal;
+        messageText += '%0A';
     });
-    messageText += `\n*TOTAL: $${totalOrder}*\n`;
-    messageText += `💳 *Pago:* ${paymentMethod}\n`;
-    if (locationDetails) messageText += `*Notas:* ${locationDetails}\n`;
-    messageText += `\n¡Gracias por preferir La Esquina del Sabor! `;
+    
+    messageText += '%0A';
+    messageText += 'TOTAL: $' + totalOrder;
+    messageText += '%0A';
+    messageText += 'Pago: ' + paymentMethod;
+    
+    if (locationDetails) {
+        messageText += '%0A';
+        messageText += 'Notas: ' + locationDetails;
+    }
+    
+    messageText += '%0A%0A';
+    messageText += 'Gracias por preferir La Esquina del Sabor!';
 
-    // Solución compatible con iOS
-    const encodedMessage = encodeURIComponent(messageText);
+    // Construir URL - Simple y directa
+    const whatsappURL = 'https://wa.me/' + phone + '?text=' + messageText;
     
-    // Método 1: Intentar con URL normal
-    const whatsappURL = `https://wa.me/${phone}?text=${encodedMessage}`;
-    
-    // Método 2: Alternativa con API de WhatsApp (más compatible con iOS)
-    const whatsappURL2 = `https://api.whatsapp.com/send?phone=${phone}&text=${encodedMessage}`;
-    
-    // Detectar si es iOS
-    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-    
-    // Usar la URL más compatible según el dispositivo
-    const finalURL = isIOS ? whatsappURL2 : whatsappURL;
-    
-    // Abrir en nueva ventana (mejor compatibilidad)
-    window.open(finalURL, '_blank');
+    // Abrir en la misma ventana (funciona mejor en iOS)
+    window.location.href = whatsappURL;
 }
 
 /* ── CAROUSEL ── */
