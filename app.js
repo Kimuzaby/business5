@@ -130,18 +130,37 @@ async function sendWhatsApp() {
     }
 
     const phone = '50370483939';
-    let messageText = `NUEVO PEDIDO: LA ESQUINA DEL SABOR\n\n`;
-    messageText += `Cliente: ${clientName}\n`;
-    messageText += `Modalidad: ${deliveryMethod}\n\n`;
+    
+    // Construir mensaje simple y compatible con iOS
+    let messageText = `*NUEVO PEDIDO - LA ESQUINA DEL SABOR* 🍲\n\n`;
+    messageText += `*Cliente:* ${clientName}\n`;
+    messageText += `*Modalidad:* ${deliveryMethod}\n\n`;
+    messageText += `*PEDIDO:*\n`;
     cart.forEach(item => {
         messageText += `• ${item.quantity}x ${item.name} - $${(item.price * item.quantity).toFixed(2)}\n`;
     });
-    messageText += `\nTOTAL: $${totalOrder}\n`;
-    messageText += `Pago: ${paymentMethod}\n`;
-    if (locationDetails) messageText += `Notas: ${locationDetails}\n`;
-    messageText += '\n¡Gracias por preferir La Esquina del Sabor!';
+    messageText += `\n*TOTAL: $${totalOrder}*\n`;
+    messageText += `💳 *Pago:* ${paymentMethod}\n`;
+    if (locationDetails) messageText += `*Notas:* ${locationDetails}\n`;
+    messageText += `\n¡Gracias por preferir La Esquina del Sabor! `;
 
-    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(messageText)}`, '_blank');
+    // Solución compatible con iOS
+    const encodedMessage = encodeURIComponent(messageText);
+    
+    // Método 1: Intentar con URL normal
+    const whatsappURL = `https://wa.me/${phone}?text=${encodedMessage}`;
+    
+    // Método 2: Alternativa con API de WhatsApp (más compatible con iOS)
+    const whatsappURL2 = `https://api.whatsapp.com/send?phone=${phone}&text=${encodedMessage}`;
+    
+    // Detectar si es iOS
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+    
+    // Usar la URL más compatible según el dispositivo
+    const finalURL = isIOS ? whatsappURL2 : whatsappURL;
+    
+    // Abrir en nueva ventana (mejor compatibilidad)
+    window.open(finalURL, '_blank');
 }
 
 /* ── CAROUSEL ── */
